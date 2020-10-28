@@ -72,7 +72,7 @@ def main(hparams):
             early_stop_callback=None,
             gpus=hparams.gpus,
             show_progress_bar=False,
-            distributed_backend=None,
+            distributed_backend='ddp',
             )
 
     if not hparams.test:
