@@ -1,7 +1,7 @@
 import os
 import sys
 import time
-from shutil import copyfile
+from shutil import move 
 import argparse
 from glob import glob
 from tqdm import tqdm
@@ -9,16 +9,19 @@ from tqdm import tqdm
 
 def setup_timit(timit_path):
 
-    for dataset in ['TRAIN', 'TEST']:
-        outdir = os.path.join(timit_path, dataset.lower())
-        os.makedirs(outdir, exist_ok=True)
-        print(os.path.join(timit_path, dataset, '**/*.WAV'))
-        for wav in tqdm(glob(os.path.join(timit_path, dataset, '**/*.WAV'), recursive=True)):
-            new_wav = os.path.join(outdir, os.path.basename(wav).replace('.WAV', '.wav'))
+    for dataset in ['train', 'test']:
+        #outdir = os.path.join(timit_path, dataset.lower())
+        #os.makedirs(outdir, exist_ok=True)
+        print(os.path.join(timit_path, dataset, '**/*.wav'))
+        for wav in tqdm(glob(os.path.join(timit_path, dataset, '**/*.wav'), recursive=True)):
+            #print(wav)
+            new_wav = wav.replace('.WAV.wav', '.wav')
             # copy wav file to new location
-            copyfile(wav, new_wav)
+            print(f'moving {wav} --> {new_wav}')
+            move(wav, new_wav)
             # copy corresponding phoneme files
-            copyfile(wav.replace('.WAV', '.PHN'), new_wav.replace('.wav', '.phn'))
+            print(f'moving {new_wav.replace(".wav",".PHN")} --> {new_wav.replace(".wav",".phn")}')
+            move(new_wav.replace('.wav', '.PHN'), new_wav.replace('.wav', '.phn'))
             
 
 def main():
