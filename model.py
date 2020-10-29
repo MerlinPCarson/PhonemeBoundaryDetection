@@ -139,6 +139,7 @@ class Segmentor(nn.Module):
 
         # feed through rnn
         x = nn.utils.rnn.pack_padded_sequence(x, length, batch_first=True, enforce_sorted=False)
+ #       self.rnn.flatten_parameters()
         rnn_out, _ = self.rnn(x)
         rnn_out, _ = nn.utils.rnn.pad_packed_sequence(rnn_out, batch_first=True)
         rnn_cum = torch.cumsum(rnn_out, dim=1)

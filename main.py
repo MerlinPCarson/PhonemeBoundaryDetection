@@ -1,6 +1,7 @@
 import argparse
 import random
 import time
+import sys
 from os import mkdir
 from os.path import exists, join
 
@@ -66,12 +67,12 @@ def main(hparams):
             min_epochs=1,
             max_epochs=hparams.epochs,
             nb_sanity_val_steps=4,
-            checkpoint_callback=None,
+            checkpoint_callback=checkpoint,
             val_percent_check=hparams.val_percent_check,
             val_check_interval=hparams.val_check_interval,
-            early_stop_callback=None,
+            early_stop_callback=early_stop,
             gpus=hparams.gpus,
-            show_progress_bar=False,
+            show_progress_bar=True,
             distributed_backend='ddp',
             )
 

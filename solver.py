@@ -248,13 +248,13 @@ class Solver(LightningModule):
     def validation_step(self, data_batch, batch_i):
         return self.generic_eval_step(data_batch, batch_i, 'val')
 
-    def validation_epoch_end(self, outputs):
+    def validation_end(self, outputs):
         return self.generic_eval_end(outputs, 'val')
 
     def test_step(self, data_batch, batch_i):
         return self.generic_eval_step(data_batch, batch_i, 'test')
 
-    def test_epoch_end(self, outputs):
+    def test_end(self, outputs):
         return self.generic_eval_end(outputs, 'test')
 
     def configure_optimizers(self):
